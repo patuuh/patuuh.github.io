@@ -1,14 +1,21 @@
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: 100%;
-    color: red
-}
 
 div  {
     background-image: url("data:text/html,<script>alert(0)</script>");
     background-color: #cccccc;
+}
+
+a {
+    visibility: hidden;
+  }
+a:after {
+    content:'goodbye'; 
+    visibility: visible;
+    display: block;
+    background-color: red;
+    padding: 5px;
+    top: 2px;
+  }
+
+h1 {
+    color: green
 }
