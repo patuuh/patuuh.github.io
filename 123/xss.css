@@ -1,2 +1,3 @@
-BODY{background:url("javascript:javascript:alert(1)")}
-*[{}@import'%(css)s?]
+script {
+  alert("XSS attack!");
+}
